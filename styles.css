@@ -1,0 +1,27 @@
+/* Custom colors as CSS variables for non-Tailwind classes */
+:root {
+    --calc-dark: #1e1e1e;
+    --calc-button: #3c3c3c;
+    --calc-button-hover: #33333;
+    --calc-function: #333333;
+    --calc-function-hover: #3c3c3c;
+    --calc-result: #5a5a5a;
+    --calc-result-hover: #7a7a7a;
+    --calc-history: #2d2d30;
+}
+
+/* Color utility classes used in index.html */
+.bg-calc-dark { background-color: var(--calc-dark); }
+.bg-calc-button { background-color: var(--calc-button); }
+.hover\:bg-calc-button-hover:hover { background-color: var(--calc-button-hover); }
+.bg-calc-function { background-color: var(--calc-function); }
+.hover\:bg-calc-function-hover:hover { background-color: var(--calc-function-hover); }
+.bg-calc-result { background-color: var(--calc-result); }
+.hover\:bg-calc-result-hover:hover { background-color: var(--calc-result-hover); }
+.bg-calc-history { background-color: var(--calc-history); }
+
+/* Helper for long text wrap */
+.overflow-wrap-anywhere { overflow-wrap: anywhere; }
+
+/* History list reset */
+#history-list { list-style: none; margin: 0; padding-left: 0; }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 Calculator - Basic Mode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#1e1e1e">
+    <meta name="description" content="Web-based Windows 11 style calculator - Basic Mode">
+</head>
+<body class="font-segoe bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex justify-center items-center min-h-screen p-4 sm:p-5">
+    <div class="w-full max-w-5xl">
+        <div class="bg-calc-dark rounded-xl p-4 sm:p-5 shadow-2xl w-full md:grid md:grid-cols-[1fr_20rem] md:gap-6">
+            <div>
+                <div class="bg-calc-history rounded-lg p-2.5 mb-2.5 min-h-8 text-gray-300 text-sm text-right opacity-80" id="history"></div>
+                <div class="bg-calc-dark text-white text-3xl sm:text-4xl font-light text-right p-4 sm:p-5 mb-4 sm:mb-5 w-full outline-none rounded-lg min-h-16 sm:min-h-20 flex items-center justify-end break-all overflow-wrap-anywhere" id="display">0</div>
+                <div class="grid grid-cols-5 gap-2 mb-2.5">
+                    <button class="rounded-lg text-white text-sm font-normal h-10 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-result hover:bg-calc-result-hover" onclick="memoryClear()">MC</button>
+                    <button class="rounded-lg text-white text-sm font-normal h-10 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-result hover:bg-calc-result-hover" onclick="memoryRecall()">MR</button>
+                    <button class="rounded-lg text-white text-sm font-normal h-10 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-result hover:bg-calc-result-hover" onclick="memoryAdd()">M+</button>
+                    <button class="rounded-lg text-white text-sm font-normal h-10 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-result hover:bg-calc-result-hover" onclick="memorySubtract()">M-</button>
+                    <button class="w-full rounded-lg text-white text-sm font-normal h-10 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-result hover:bg-calc-result-hover" onclick="memoryStore()">MS</button>
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="inputFunction('percent')">%</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="clearAll()">C</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="clearEntry()">CE</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="backspace()">⌫</button>
+                    
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="inputFunction('invert')">1/x</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="inputFunction('pow')">x²</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="inputFunction('sqrt')">√</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="inputOperator('/')">÷</button>
+                    
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('7')">7</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('8')">8</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('9')">9</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="inputOperator('*')">×</button>
+
+                    
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('4')">4</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('5')">5</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('6')">6</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="inputOperator('-')">−</button>
+                    
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('1')">1</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('2')">2</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('3')">3</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-function hover:bg-calc-function-hover" onclick="inputOperator('+')">+</button>
+
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputFunction('sign')">+/-</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputNumber('0')">0</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 bg-calc-button hover:bg-calc-button-hover active:bg-calc-dark" onclick="inputDecimal()">.</button>
+                    <button class="rounded-lg text-white text-lg sm:text-xl font-normal h-14 sm:h-16 transition-all duration-200 ease-in-out flex items-center justify-center select-none transform hover:-translate-y-0.5 active:translate-y-0 row-span-2 bg-calc-result hover:bg-calc-result-hover" onclick="calculate()">=</button>
+
+                </div>
+            </div>
+
+            <aside class="hidden md:block text-white relative">
+                <!-- Toggle buttons -->
+                <div class="flex mb-3">
+                    <button id="history-tab" class="flex-1 rounded-l-lg bg-calc-function hover:bg-calc-function-hover text-white h-8 text-sm font-medium" onclick="showHistory()">History</button>
+                    <button id="memory-tab" class="flex-1 rounded-r-lg bg-calc-button hover:bg-calc-button-hover text-white h-8 text-sm font-medium" onclick="showMemory()">Memory</button>
+                </div>
+                
+                <!-- History frame -->
+                <div id="history-frame" class="space-y-2">
+                    <ul id="history-list" class="space-y-2 max-h-[60vh] overflow-y-auto pr-1">
+                        <!-- Populated by script.js -->
+                    </ul>
+                    <button class="absolute bottom-4 right-4 rounded-lg bg-calc-result hover:bg-calc-result-hover text-white  w-10 h-10 text-sm" onclick="clearHistory()">🗑︎</button>
+                </div>
+                
+                <!-- Memory frame -->
+                <div id="memory-frame" class="space-y-2 hidden">
+                    <div class="text-gray-300 text-sm mb-2">Memory Value:</div>
+                    <div id="memory-display" class="bg-calc-history rounded-lg p-2 text-white text-lg font-mono text-right mb-4">0</div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
